@@ -1,23 +1,18 @@
 import React, { useState } from "react";
 import { View, Text, Image, StyleSheet, Modal, TouchableOpacity, Button, FlatList } from "react-native";
 
-type Props = {
-  name: string;
-  description: string;
-  image: string;
-  atributos: string[];
-};
 
-export default function CrashCard({ name, description, image, atributos }: Props) {
+
+export default function CrashCard( props:any) {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <TouchableOpacity style={styles.container} onPress={() => setModalVisible(true)}>
       <View style={styles.content}>
-        <Image source={{ uri: image }} style={styles.img} />
+        <Image source={{ uri: props.Personajes.imagen }} style={styles.img} />
         <View style={styles.info}>
-          <Text style={styles.nombre}>{name}</Text>
-          <Text style={styles.descripcion}>{description}</Text>
+          <Text style={styles.nombre}>{props}</Text>
+          <Text style={styles.descripcion}>{props}</Text>
         </View>
       </View>
       <Modal
@@ -28,12 +23,12 @@ export default function CrashCard({ name, description, image, atributos }: Props
       >
         <View style={styles.modalBg}>
           <View style={styles.modalContent}>
-            <Image source={{ uri: image }} style={styles.img} />
-            <Text style={styles.nombre}>{name}</Text>
-            <Text style={styles.descripcion}>{description}</Text>
+            <Image source={{ uri: props }} style={styles.img} />
+            <Text style={styles.nombre}>{props}</Text>
+            <Text style={styles.descripcion}>{props}</Text>
             <Text style={styles.subtitulo}>Atributos:</Text>
             <FlatList
-              data={atributos}
+              data={props}
               keyExtractor={(item, idx) => idx.toString()}
               renderItem={({ item }) => <Text style={styles.atributo}>• {item}</Text>}
             />

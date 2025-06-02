@@ -4,7 +4,7 @@ import React from 'react'
 export default function Bienvenida({ navigation }: any) {
   return (
     <View style={styles.container}>
-      <Text style={styles.titulo}>JUAN PAZ</Text>
+      <Text style={styles.titulo}>Evaluacion Parcial</Text>
       {/* Aquí puedes agregar una imagen si lo deseas */}
       <Button
         title="Ingresar"
