@@ -3,12 +3,11 @@ import { View, Text, FlatList, ActivityIndicator, StyleSheet } from "react-nativ
 import CrashCard from "../componentes/CrashCard";
 
 type CrashItem = {
-  id: number;
+  id: string;
   name: string;
-  artist: string;
+  description: string;
   image: string;
-  year?: string;
-  [key: string]: any; // Por si vienen más campos
+  atributos: string[];
 };
 
 export default function ListaApi() {
@@ -39,13 +38,13 @@ export default function ListaApi() {
       <Text style={styles.titulo}>Lista desde la API</Text>
       <FlatList
         data={data}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <CrashCard
             name={item.name}
-            artist={item.artist}
+            description={item.description}
             image={item.image}
-            year={item.year}
+            atributos={item.atributos}
           />
         )}
         ItemSeparatorComponent={() => <View style={styles.separator} />}

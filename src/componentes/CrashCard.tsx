@@ -1,38 +1,104 @@
-import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Image, StyleSheet, Modal, TouchableOpacity, Button, FlatList } from "react-native";
 
 type Props = {
   name: string;
-  artist: string;
+  description: string;
   image: string;
-  year?: string;
+  atributos: string[];
 };
 
-export default function CrashCard({ name, artist, image, year }: Props) {
+export default function CrashCard({ name, description, image, atributos }: Props) {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
-    <View style={styles.itemContainer}>
-      <Image source={{ uri: image }} style={styles.imagen} />
-      <View style={styles.info}>
-        <Text style={styles.nombre}>{name}</Text>
-        <Text style={styles.artista}>Artista: {artist}</Text>
-        {year && <Text style={styles.year}>Año: {year}</Text>}
+    <TouchableOpacity style={styles.container} onPress={() => setModalVisible(true)}>
+      <View style={styles.content}>
+        <Image source={{ uri: image }} style={styles.img} />
+        <View style={styles.info}>
+          <Text style={styles.nombre}>{name}</Text>
+          <Text style={styles.descripcion}>{description}</Text>
+        </View>
       </View>
-    </View>
+      <Modal
+        visible={modalVisible}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalBg}>
+          <View style={styles.modalContent}>
+            <Image source={{ uri: image }} style={styles.img} />
+            <Text style={styles.nombre}>{name}</Text>
+            <Text style={styles.descripcion}>{description}</Text>
+            <Text style={styles.subtitulo}>Atributos:</Text>
+            <FlatList
+              data={atributos}
+              keyExtractor={(item, idx) => idx.toString()}
+              renderItem={({ item }) => <Text style={styles.atributo}>• {item}</Text>}
+            />
+            <Button title="Cerrar" onPress={() => setModalVisible(false)} />
+          </View>
+        </View>
+      </Modal>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  itemContainer: {
+  img: {
+    width: 120,
+    height: 120,
+    resizeMode: "contain",
+    borderRadius: 12,
+    marginBottom: 10,
+  },
+  container: {
+    backgroundColor: "#FFB22C",
+    borderRadius: 20,
+    margin: 5,
+    padding: 10,
+  },
+  content: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#f3f3f3",
-    borderRadius: 10,
-    padding: 10,
-    marginVertical: 4,
   },
-  imagen: { width: 70, height: 70, borderRadius: 8, marginRight: 12, backgroundColor: "#eee" },
-  info: { flex: 1 },
-  nombre: { fontSize: 18, fontWeight: "bold" },
-  artista: { fontSize: 15, marginTop: 2 },
-  year: { fontSize: 14, color: "#555", marginTop: 2 },
+  info: {
+    marginLeft: 12,
+    flex: 1,
+  },
+  nombre: {
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  descripcion: {
+    fontSize: 14,
+    marginTop: 2,
+  },
+  subtitulo: {
+    fontWeight: "bold",
+    marginTop: 10,
+    fontSize: 16,
+  },
+  atributo: {
+    fontSize: 14,
+    marginLeft: 8,
+  },
+  modalBg: {
+    flex: 1,
+    backgroundColor: "rgba(30,40,60,0.25)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContent: {
+    backgroundColor: "#FEF3E2",
+    padding: 30,
+    borderRadius: 22,
+    alignItems: "center",
+    minWidth: 320,
+    minHeight: 320,
+    maxWidth: "90%",
+    maxHeight: "80%",
+    justifyContent: "center",
+  },
 });
