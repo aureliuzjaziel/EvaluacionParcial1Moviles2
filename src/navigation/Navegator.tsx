@@ -21,7 +21,7 @@ function MyStack(){
             <Stack.Screen name= 'Welcome' component={WelcomeScreen} />
             <Stack.Screen name = 'Login' component={LoginScreeen}/>
             <Stack.Screen name = 'Registrer' component={RegisterScreen} />
-            <Stack.Screen name = 'Perfil' component={BottomTabNavigator} />
+            <Stack.Screen name = 'Operaciones' component={BottomTabNavigator} />
         </Stack.Navigator>
 
         

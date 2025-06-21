@@ -20,28 +20,7 @@ export default function RegisterScreen() {
       return;
     }
 
-    // Guardar datos extra en la tabla usuarios
-    const { error: insertError } = await supabase
-      .from('usuarios')
-      .insert([
-        {
-          correo,
-          contrasena,
-          usuario,
-          celular,
-          auth_id: data.user?.id // puedes guardar el id del usuario autenticado
-        }
-      ]);
-
-    if (insertError) {
-      Alert.alert('Error', 'No se pudo guardar datos extra');
-    } else {
-      Alert.alert('Éxito', 'Usuario registrado correctamente');
-      setCorreo('');
-      setContrasena('');
-      setUsuario('');
-      setCelular('');
-    }
+    
   }
 
   return (

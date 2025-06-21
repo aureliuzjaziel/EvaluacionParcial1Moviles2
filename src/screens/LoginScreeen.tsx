@@ -1,11 +1,24 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
 import React, { useState } from 'react';
+import { supabase } from '../SupaBase/config';
+import PerfilScreen from './PerfilScreen';
 
-export default function LoginScreeen() {
+export default function LoginScreeen({navigation}: any) {
   const [correo, setCorreo] = useState('');
   const [contrasena, setContrasena] = useState('');
 
-  
+
+  async function login() {
+    const { data, error } = await supabase.auth.signInWithPassword({
+  email: correo,
+  password: contrasena,
+})
+    if(data.user === null){
+  Alert.alert("Error", "Credenciales incorrectas")
+}else{
+  navigation.navigate("Operaciones")
+  }
+  }
 
   return (
     <View style={styles.container}>
@@ -29,7 +42,7 @@ export default function LoginScreeen() {
         onChangeText={setContrasena}
         secureTextEntry
       />
-      <TouchableOpacity style={styles.boton}>
+      <TouchableOpacity style={styles.boton} onPress={login}>
         <Text style={styles.textoBoton}>Login</Text>
       </TouchableOpacity>
     </View>
