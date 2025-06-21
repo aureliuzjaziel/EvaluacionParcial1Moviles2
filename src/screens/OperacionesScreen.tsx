@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-export default function EditarRecordatorios(navigation: any) {
+export default function OperacionesScreen() {
   return (
     <View>
-      <Text>EditarRecordatorios</Text>
+      <Text>OperacionesScreen</Text>
     </View>
   )
 }
